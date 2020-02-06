@@ -10,17 +10,22 @@ fn main() {
     println!("Guess the number!");
     println!("ans: {}", secret);
     
-    println!(">");
-    std::io::stdin().read_line(&mut guess).expect("Failed to read line");
-    
-    let guess: u32 = guess.trim().parse().expect("fatal: input was not an integer");
+    loop {
+        println!(">");
+        std::io::stdin().read_line(&mut guess).expect("Failed to read line");
+        
+        let guess: u32 = guess.trim().parse().expect("fatal: input was not a positive integer");
 
-    match guess.cmp(&secret) {
-        Ordering::Less => println!("too small"),
-        Ordering::Equal => println!("Horray!"),
-        Ordering::Greater => println!("too big"),
+        println!("> {}", guess);
+        match guess.cmp(&secret) {
+            Ordering::Less => println!("too small"),
+            Ordering::Equal => {
+                println!("Horray!");
+                break;
+            }
+            Ordering::Greater => println!("too big"),
+        }
+
     }
-
-    println!("> {}", guess)
 
 }
